@@ -1,4 +1,7 @@
 using BookInformationApp.API.Data;
+using BookInformationApp.API.Interfaces;
+using BookInformationApp.API.Mapping_Profiles;
+using BookInformationApp.API.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +17,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddAutoMapper(typeof(AutomapperProfile));
+
+builder.Services.AddScoped(typeof(AutomapperProfile));
 
 var app = builder.Build();
 
