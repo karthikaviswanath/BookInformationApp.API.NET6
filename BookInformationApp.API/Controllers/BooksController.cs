@@ -6,6 +6,7 @@ using BookInformationApp.API.DTOs;
 using AutoMapper;
 using static System.Reflection.Metadata.BlobBuilder;
 using System.Diagnostics.Metrics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookInformationApp.API.Controllers
 {
@@ -36,6 +37,7 @@ namespace BookInformationApp.API.Controllers
 
         // GET: api/Books/1
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<BookDto>> GetBookById(int id)
         {
             var book = await _bookRepo.GetByIdAsync(id);
@@ -50,6 +52,7 @@ namespace BookInformationApp.API.Controllers
 
         // GET: api/Books/genre
         [HttpGet("genre")]
+        [Authorize]
         public async Task<ActionResult<BookDto>> GetBookByName(string genre)
         {
             if(String.IsNullOrEmpty(genre))
@@ -70,6 +73,7 @@ namespace BookInformationApp.API.Controllers
         // PUT: api/Books/3
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> UpdateBook(int id, BookDto bookDetails)
         {
             if (id != bookDetails.Id)
@@ -107,6 +111,7 @@ namespace BookInformationApp.API.Controllers
         // POST: api/Books
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult<BookDto>> AddBook(BookCreateDto bookDetails)
         {
             var book = _mapper.Map<Book>(bookDetails);
@@ -117,6 +122,7 @@ namespace BookInformationApp.API.Controllers
 
         // DELETE: api/Books/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteBook(int id)
         {
             var book = await _bookRepo.GetByIdAsync(id);
