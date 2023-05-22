@@ -4,6 +4,7 @@ using BookInformationApp.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookInformationApp.API.Migrations
 {
     [DbContext(typeof(BookInfoAppDBContext))]
-    partial class BookInfoAppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230522080300_AddedIdentityTables")]
+    partial class AddedIdentityTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,22 +179,6 @@ namespace BookInformationApp.API.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "682581d0-10ad-4396-bf7a-0aeaea179f17",
-                            ConcurrencyStamp = "b4bf1521-6b5a-46e5-89c7-ce06f63e7179",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        },
-                        new
-                        {
-                            Id = "4e7ffda8-4e47-41b6-a5c7-2f3799b03813",
-                            ConcurrencyStamp = "2c038bb1-9045-4425-83ca-c2f1607dc3eb",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
